@@ -10,7 +10,9 @@ template.innerHTML =  /* html */`
 
         :host {
             --backgroundColour: #F3F4F6;
-
+            --borderColour: black;
+            --imageSize: 400px;
+            
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -31,8 +33,6 @@ template.innerHTML =  /* html */`
         }
 
         #bottom-row {
-            --borderColour: black;
-
             display: flex;
             flex-direction: column;
             width: 100%;
@@ -45,7 +45,6 @@ template.innerHTML =  /* html */`
         }
 
         #image {
-            --imageSize: 400px;
             width: var(--imageSize);
             height: var(--imageSize);
         }
