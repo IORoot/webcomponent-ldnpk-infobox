@@ -31,12 +31,13 @@ template.innerHTML =  /* html */`
         }
 
         #bottom-row {
-            --lineColour: black;
+            --borderColour: black;
 
             display: flex;
             flex-direction: column;
             width: 100%;
-            border-top:1px solid var(--lineColour)
+            border-top:1px solid;
+            border-color: var(--borderColour);
         }
 
         #category {
@@ -44,9 +45,9 @@ template.innerHTML =  /* html */`
         }
 
         #image {
-            --size: 400px;
-            width: var(--size);
-            height: var(--size);
+            --imageSize: 400px;
+            width: var(--imageSize);
+            height: var(--imageSize);
         }
 
         #glyph {
