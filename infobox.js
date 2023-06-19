@@ -22,12 +22,16 @@ html += /* html */`
         :host {
             /* Variables  */
             --backgroundColour: #F3F4F6;
-            --foregroundColour: black;
-            --highlightsColour: white;
-            --hoverstateColour: white;
-            --imageSize: 400px;
-            --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --foregroundColour: #000000;
+            --highlightsColour: #38bdf8;
+            --imageSize:        400px;
+            --shadow:           0 4px 6px -1px rgb(0 0 0 / 0.1), 
+                                0 2px 4px -2px rgb(0 0 0 / 0.1);
 
+            
+        }
+
+        #infobox {
             /* Position */
             position: relative;
             display: flex;
@@ -41,11 +45,11 @@ html += /* html */`
 
             /* Presentation  */
             background: var(--backgroundColour);
-            box-shadow: var(--shadow);
             color: var(--foregroundColour);
             font-size: 1rem;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Droid Sans', 'Helvetica Neue', sans-serif;
         }
+
 
         #top-row {
             /* Position  */
@@ -158,6 +162,7 @@ html += /* html */`
             /* Position */
             display: flex;
             gap: 1rem;
+            margin-top: 1rem;
         }
 
         #button {
@@ -175,24 +180,25 @@ html += /* html */`
 
         }
 
+        .shadow {
+            /* Presentation */
+            box-shadow: var(--shadow);
+        }
+
     /*  ╭──────────────────────────────────────────────────────────╮
         │                       HOVER STATES                       │
         ╰──────────────────────────────────────────────────────────╯ */
 
-        :host(:hover) {
+        #infobox:hover {
             background: var(--foregroundColour);
             color: var(--backgroundColour);
         }
 
-        :host(:hover) #category {
+        #infobox:hover #category {
             color: var(--backgroundColour);
         }
-        :host(:hover) #bottom-row {
+        #infobox:hover #bottom-row {
             border-color: var(--backgroundColour);
-        }
-
-        #button:hover {
-            background-color: var(--hoverstateColour);
         }
 
 
@@ -204,7 +210,7 @@ html += /* html */`
 // ║                         TEMPLATE                         ║
 // ╚══════════════════════════════════════════════════════════╝
 html += /* html */`
-
+    <div id="infobox">
         <div id="top-row">
             <div id="category">category</div>
             <div id="image-wrapper">
@@ -217,14 +223,13 @@ html += /* html */`
         <div id="bottom-row">
             <h3 id="title">Title</h3>
             <div id="text-columns">
-                <slot name="text-column-one"></slot>
-                <slot name="text-column-two"></slot>
+                <slot name="text"></slot>
             </div>
             <div id="buttons">
                 <slot name="buttons"></slot>
             </div>
         </div>
-
+    </div>
 `;
 
 
@@ -247,17 +252,28 @@ class InfoBox extends HTMLElement {
         this.attachShadow({ mode: "open" });
         this.shadowRoot.appendChild(clone);
 
+        const element = this.shadowRoot.querySelector("#infobox");
+
         // Title
         this.shadowRoot.querySelector("h3").innerHTML = this.titleAttribute;
 
         // Category
         this.shadowRoot.querySelector("#category").innerHTML = this.categoryAttribute;
 
+        // shadow
+        if (this.hasAttribute('shadow')){
+            element.classList.add("shadow");
+        }
 
         // Click-To-Action
         let CTA = "Learn More"
         if (this.ctaAttribute){
             CTA=this.ctaAttribute;
+        }
+
+        // Columns
+        if (this.hasAttribute('columns')){
+            
         }
 
     }
@@ -279,6 +295,10 @@ class InfoBox extends HTMLElement {
 
     get ctaAttribute() {
         return this.getAttribute("cta");
+    }
+
+    get columnsAttribute() {
+        return this.getAttribute("columns");
     }
 }
 
