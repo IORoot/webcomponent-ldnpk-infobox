@@ -9,7 +9,7 @@ const template = document.createElement('template');
 // ║                INCLUDES / LINKS / SCRIPTS                ║
 // ╚══════════════════════════════════════════════════════════╝
 let html = /* html */` 
-    <link href="https://fonts.cdnfonts.com/css/inter" rel="stylesheet">
+
 `;
 
 
